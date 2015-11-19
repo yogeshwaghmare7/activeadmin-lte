@@ -12,8 +12,8 @@ module ActiveAdmin
                 header:              ActiveAdmin::LTE::Views::Header,
                 footer:              ActiveAdmin::LTE::Views::Footer,
                 index_scopes:        ActiveAdmin::LTE::Views::Scopes,
-                blank_slate:         ActiveAdmin::LTE::Views::BlankSlate,
-                action_list_popover: ActiveAdmin::LTE::Views::ActionListPopover
+                blank_slate:         ActiveAdmin::LTE::Views::BlankSlate
+                # action_list_popover: ActiveAdmin::LTE::Views::ActionListPopover
 
       register  index_page: ActiveAdmin::LTE::Views::Pages::Index,
                 show_page:  ActiveAdmin::LTE::Views::Pages::Show,
