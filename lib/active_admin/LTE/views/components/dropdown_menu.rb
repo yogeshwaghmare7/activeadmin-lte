@@ -1,4 +1,4 @@
-require 'active_admin/views/components/popover'
+#require 'active_admin/views/components/popover'
 
 module ActiveAdmin
   module LTE
