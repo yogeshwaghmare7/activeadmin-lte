@@ -5,6 +5,6 @@
 # \____/ \___/ |_| |_| |_|| .__/  \___/ |_| |_| \___||_| |_| \__||___/
 #                      |_|
 
-module ComponentsHelper
+module ActiveAdmin::ComponentsHelper
   # code
 end

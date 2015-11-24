@@ -5,6 +5,6 @@
 # | .__/ |_| \__,_| \__, ||_||_| |_|
 # |_|               |___/
 
-module PluginsHelper
+module ActiveAdmin::PluginsHelper
   #code
 end
