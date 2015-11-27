@@ -6,17 +6,24 @@
 #                      |_|
 
 module ActiveAdmin::ComponentsHelper
-  def info_box(color, icon, text = {})
-    content_tag :div, class: 'info-box'  do
-      # Apply any bg-* class to to the icon to color it
-      content_tag :span, class: "info-box-icon bg-#{color}" do
-        content_tag :i, class: "fa #{icon}"
-      end
+  def info_box(color:, icon: 'fa-star-o', data:)
+    render 'active_admin/components/info_box', color: color, icon: icon, data: data
+  end
 
-      content_tag :div, class: "info-box-content" do
-        content_tag :span, text[:title], class: "info-box-text"
-        content_tag :span, text[:number], class: "info-box-number"
-      end
-    end
+  def info_box_progress(color:, icon: 'fa-star-o', data:)
+    render 'active_admin/components/info_box_2', color: color, icon: icon, data: data
+  end
+
+  def modal_for(heading: {}, &block)
+    body = capture(&block)
+    block_to_partial('active_admin/components/modal', { heading: heading, body: body })
+  end
+
+  def block_to_partial(partial_name, options={})
+    render(partial: partial_name, locals: options)
+  end
+
+  def modal_trigger(type:, target:, text:)
+    render 'active_admin/components/modal_trigger', type: type, target: target, text: text
   end
 end

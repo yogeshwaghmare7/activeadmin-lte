@@ -1,0 +1,49 @@
+.modal{
+  .modal-title{
+    font-size: 18px !important;
+    color: #fff;
+  }
+  &.modal-default{
+    .modal-title{
+      color: #000;
+    }
+  }
+}
+
+.btn{
+  text-shadow: none;
+  &.btn-outline{
+    background-color: transparent !important;
+  }
+
+  &:hover, &:active{
+    background-image: none !important;
+  }
+
+  &:active{
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+  }
+
+  &.btn-primary{
+    &:hover, &:active{
+      background-color: #367fa9;
+    }
+    &:active:hover{
+      background-color: #204d74;
+      border-color: #122b40;
+    }
+  }
+
+  &.btn-default{
+    &:hover, &:active{
+      background-color: #e7e7e7
+    }
+  }
+}
+button.close{
+  background-color: transparent !important;
+  box-shadow: none !important;
+  &:hover, &:active{
+    background-image: none !important;
+  }
+}
