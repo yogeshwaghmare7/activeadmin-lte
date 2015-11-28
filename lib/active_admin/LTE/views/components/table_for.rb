@@ -119,7 +119,7 @@ module ActiveAdmin
 
         def is_boolean?(data, item)
           if item.respond_to? :column_for_attribute
-            attr = item.column_for_attribute(data) and attr.type == :boolean 
+            attr = item.has_attribute?(data) and attr.type == :boolean 
           end
         end
 
@@ -158,7 +158,7 @@ module ActiveAdmin
 
           attr_accessor :title, :data , :html_class
 
-          def initialize(*args, &block) 
+          def initialize(*args, &block)
             @options = args.extract_options!
 
             @title = args[0]

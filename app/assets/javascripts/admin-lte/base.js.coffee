@@ -10,6 +10,7 @@
 #= require admin-lte/app
 #= require admin-lte/plugins/jquery.slimscroll
 #= require admin-lte/treeview
+#= require admin-lte/sidebar
 #= require_self
 
 class LTEDateTime

@@ -2,13 +2,17 @@ module ActiveAdmin
   module LTE
     module Views
 
-      class SidebarSection < Arbre::Component
+      class SidebarSection < Panel
         builder_method :sidebar_section
 
         # Takes a ActiveAdmin::SidebarSection instance
         def build(section)
           @section = section
-          super(@section.title, icon: @section.icon)
+          @options = section.options
+          puts '--------------------'
+          puts @options
+          puts '--------------------'
+          super(@section.title, @options)
           add_class @section.custom_class if @section.custom_class
           self.id = @section.id
           build_sidebar_content

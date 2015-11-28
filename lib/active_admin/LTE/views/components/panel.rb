@@ -7,14 +7,24 @@ module ActiveAdmin
 
         def build(title, attributes = {})
           icon_name = attributes.delete(:icon)
-          icn = icon_name ? icon(icon_name) : "".html_safe
+          collapse  = attributes.delete(:collapse)
+          border    = attributes.delete(:border) ? 'with-border' : nil
+          type      = attributes[:type] ? "box-#{attributes.delete(:type)}" : nil
+          icn       = icon_name ? ActiveAdmin::LTE.icon(icon_name, 'margin-right') : ""
           super(attributes)
-          add_class "box"
+          add_class "box #{type}"
           remove_class "panel"
-          @title = div class: 'box-header' do
-            h3(icn + title.to_s, class: 'box-title')
+          @title = div class: "box-header #{border}" do
+            h3(icn.html_safe + title.to_s.capitalize, class: 'box-title')
+            # if collapse
+              div class: "box-tools pull-right" do
+                button type: "button", class: "btn btn-box-tool", :'data-widget' => "collapse" do
+                  i class: "fa fa-minus"
+                end
+              end
+            # end
           end
-          @contents = div(class: "box-body no-padding")
+          @contents = div(class: "box-body")
         end
 
         def add_child(child)
