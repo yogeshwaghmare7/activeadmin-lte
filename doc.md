@@ -104,7 +104,6 @@ end
 
 ### Active Admin sidebar
 > I implemented more new options in sidebar method for visual. All the new options are optional. See the example
-
 ```ruby
 # border(true or false). Add border under panel border.
 # collapse(true or false). Add collapse action in panel.
@@ -117,7 +116,6 @@ end
 
 ### Active Admin panel
 > I implemented more new options in sidebar method for visual. All the new options are optional. See the example
-
 ```ruby
 # border(true or false). Add border under panel border.
 # collapse(true or false). Add collapse action in panel.
