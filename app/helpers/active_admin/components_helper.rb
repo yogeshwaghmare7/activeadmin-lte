@@ -23,15 +23,27 @@ module ActiveAdmin::ComponentsHelper
     render(partial: partial_name, locals: options)
   end
 
-  def modal_trigger(type:, target:, text:)
-    render 'active_admin/components/modal_trigger', type: type, target: target, text: text
+  def modal_trigger(tag:, options: {})
+    type = options.delete(:type)
+    text = options.delete(:text)
+    target    = options.delete(:target)
+    css_class = options.delete(:css_class)
+
+    return link_to text.html_safe, "#", class: css_class, data: { toggle: "modal", target: "##{target}" } if tag.to_sym == :link
+    content_tag(:button, text.html_safe, class: css_class, data: { toggle: "modal", target: "##{target}" }, type: "button")
+  end
+
+  def lte_button(tag:, options: {})
+    url  = options.delete(:url)
+    type = options.delete(:type)
+    text = options.delete(:text)
+    css_class = options.delete(:css_class)
+
+    return link_to(text.html_safe, url, class: css_class) if tag.to_sym == :link
+    content_tag(:button, text.html_safe, class: css_class, type: type)
   end
 
   def carousel(id:, images:)
     render 'active_admin/components/carousel', id: id, images: images
-  end
-
-  def button_link(url:, text:, css_class:)
-    link_to text.html_safe, url, class: css_class
   end
 end
