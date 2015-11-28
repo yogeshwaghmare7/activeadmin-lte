@@ -30,4 +30,8 @@ module ActiveAdmin::ComponentsHelper
   def carousel(id:, images:)
     render 'active_admin/components/carousel', id: id, images: images
   end
+
+  def button_link(url:, text:, css_class:)
+    link_to text.html_safe, url, class: css_class
+  end
 end
