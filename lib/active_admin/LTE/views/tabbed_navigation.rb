@@ -40,20 +40,29 @@ module ActiveAdmin
           end
         end
 
-        def build_menu_item(item)
+        def build_menu_item(item, is_child=false)
           li id: item.id do |li|
             li.add_class "active" if item.current? assigns[:current_tab]
+            icon = unless is_child
+              "<i class='fa #{ActiveAdmin::LTE.icon_collection.sample}'></i>"
+            end
+
+            carret = if item.items(self).presence
+              direction = item.current?(assigns[:current_tab]) ? :down : :left
+              "<i class='fa fa-caret-#{direction} main-menu-dropdown-caret'></i>"
+            end
+
             label_with_icon = <<-END.strip_heredoc.html_safe
-              <i class="fa #{ActiveAdmin::LTE.icon_collection.sample}"></i>
-              #{item.label(self)}
+              #{ icon }
+              #{ carret }
+              #{ item.label(self) }
             END
             text_node link_to label_with_icon, item.url(self), item.html_options
 
             if children = item.items(self).presence
               li.add_class "has_nested"
-              i class: 'fa fa-caret-left main-menu-dropdown-caret'
               ul class: 'treeview-menu' do
-                children.each{ |child| build_menu_item child }
+                children.each{ |child| build_menu_item child, true }
               end
             end
           end

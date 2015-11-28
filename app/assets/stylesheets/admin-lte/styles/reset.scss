@@ -11,7 +11,9 @@
 }
 
 .btn{
-  text-shadow: none;
+  text-shadow: none !important;
+  background-image: none !important;
+
   &.btn-outline{
     background-color: transparent !important;
   }
@@ -26,17 +28,17 @@
 
   &.btn-primary{
     &:hover, &:active{
-      background-color: #367fa9;
+      background-color: #367fa9 !important;
     }
     &:active:hover{
-      background-color: #204d74;
-      border-color: #122b40;
+      background-color: #204d74 !important;
+      border-color: #122b40 !important;
     }
   }
 
   &.btn-default{
     &:hover, &:active{
-      background-color: #e7e7e7
+      background-color: #e7e7e7 !important;
     }
   }
 }
@@ -46,4 +48,25 @@ button.close{
   &:hover, &:active{
     background-image: none !important;
   }
+}
+
+.alert a.close, a.btn{
+  text-decoration: none !important;
+}
+
+.form-horizontal .form-group{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.has-error .help-block{
+  color: #dd4b39;
+}
+
+header#header .navbar{
+  padding-right: 20px;
+}
+
+.fa.margin{
+  margin-left: 10px;
 }

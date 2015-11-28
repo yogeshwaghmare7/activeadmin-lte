@@ -29,7 +29,7 @@ module ActiveAdmin
             @body.add_class("active_admin")
             @body.add_class("logged_in")
             @body.add_class(active_admin_namespace.name.to_s + "_namespace")
-            @body.add_class('skin-blue')
+            @body.add_class("skin-#{ActiveAdmin::LTE.configuration.skin} fixed")
           end
 
           def build_active_admin_head
@@ -129,14 +129,17 @@ module ActiveAdmin
 
           def build_flash_messages
             flash_type_map = {
-              "alert" => 'warning',
-              "notice" =>'success'
+              "alert" => 'danger',
+              "notice" =>'success',
+              "warning" =>'warning',
+              "info" =>'info',
             }
             if flash_messages.any?
               div class: 'flashes no-print' do
                 flash_messages.each do |type, message|
                   flash_type = flash_type_map[type.to_s]
                   div class: "flash flash_#{type} alert alert-#{flash_type}" do
+                    button '×', type: "button", class: "close", :'data-dismiss' => "alert", :'aria-hidden' => true
                     build_flash_icon flash_type
                     text_node message
                   end
@@ -147,16 +150,20 @@ module ActiveAdmin
 
           def build_flash_icon flash_type
             icon_class_map ={
-              'alert'  => 'fa fa-check',
+              'danger'  => 'fa fa-ban',
               'success'=> 'fa fa-check',
               'warning'=> 'fa fa-warning',
+              'info'=> 'fa fa-info',
             }
 
             raw = <<-END.strip_heredoc
-              <div class="alert-icon">
-              <i class="#{icon_class_map[flash_type]}"></i>
-              </div>
+              <i class="margin #{icon_class_map[flash_type]}"></i>
             END
+            # raw = <<-END.strip_heredoc
+            #   <div class="alert-icon">
+            #   <i class="#{icon_class_map[flash_type]}"></i>
+            #   </div>
+            # END
 
             text_node raw.html_safe
           end

@@ -8,6 +8,8 @@
 #= require admin-lte/picker.date
 #= require admin-lte/picker.time
 #= require admin-lte/app
+#= require admin-lte/plugins/jquery.slimscroll
+#= require admin-lte/treeview
 #= require_self
 
 class LTEDateTime
@@ -119,7 +121,7 @@ class LTEDateRangeFilter
 
 
 $(document).ready ->
-  $('.sidebar-menu .has_nested').tree()
+  # $('.sidebar-menu .has_nested').tree()
   $('.filter-toggle .btn').click ->
     filterIndex = $('.index-filter-outer')
     isActive    = filterIndex.hasClass('active')
@@ -158,5 +160,3 @@ $(document).ready ->
     el = $(e.currentTarget)
     el.css('overflow', el.data('original-overflow'))
   )
-
-

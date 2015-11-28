@@ -8,7 +8,7 @@ module ActiveAdmin
         end
 
         def build(namespace, menu)
-          super(id: "header")
+          super(id: "header", class: 'main-header')
 
           @namespace = namespace
           @menu = menu
@@ -52,7 +52,6 @@ module ActiveAdmin
         def build_utility_navigation
           insert_tag view_factory.utility_navigation, @utility_menu, id: "utility_nav"
         end
-
       end
     end
   end

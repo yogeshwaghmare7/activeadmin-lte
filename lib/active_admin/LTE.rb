@@ -1,4 +1,5 @@
 require "active_admin/LTE/version"
+require "active_admin/LTE/configure"
 require "quiet_assets"
 require 'awesome_print'
 require 'bootstrap-kaminari-views'
