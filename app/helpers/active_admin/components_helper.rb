@@ -26,4 +26,8 @@ module ActiveAdmin::ComponentsHelper
   def modal_trigger(type:, target:, text:)
     render 'active_admin/components/modal_trigger', type: type, target: target, text: text
   end
+
+  def carousel(id:, images:)
+    render 'active_admin/components/carousel', id: id, images: images
+  end
 end

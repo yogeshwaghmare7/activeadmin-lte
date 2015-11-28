@@ -1,16 +1,21 @@
 #= require jquery
 #= require jquery_ujs
+
 #= require admin-lte/active_admin_has_many
-#= require admin-lte/jquery.velocity.min
-#= require admin-lte/bootstrap
-#= require admin-lte/bootstrap.wysiwyg
-#= require admin-lte/picker
-#= require admin-lte/picker.date
-#= require admin-lte/picker.time
-#= require admin-lte/app
+#= require admin-lte/plugins/picker
+#= require admin-lte/plugins/picker.date
+#= require admin-lte/plugins/picker.time
+#= require admin-lte/plugins/jquery.velocity.min
 #= require admin-lte/plugins/jquery.slimscroll
-#= require admin-lte/treeview
-#= require admin-lte/sidebar
+#= require admin-lte/plugins/select2/select2.min
+
+#= require admin-lte/bootstrap/bootstrap
+#= require admin-lte/bootstrap/bootstrap.wysiwyg
+
+#= require admin-lte/hack/treeview
+#= require admin-lte/hack/sidebar
+
+#= require admin-lte/app
 #= require_self
 
 class LTEDateTime
@@ -118,11 +123,10 @@ class LTEDateRangeFilter
   _isSelect: (item)->
     ('select' in (keys for keys, values of item))
 
-
-
-
 $(document).ready ->
   # $('.sidebar-menu .has_nested').tree()
+  $('select').select2()
+
   $('.filter-toggle .btn').click ->
     filterIndex = $('.index-filter-outer')
     isActive    = filterIndex.hasClass('active')
