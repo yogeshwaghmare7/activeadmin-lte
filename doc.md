@@ -45,18 +45,14 @@ options: {
   css_class: 'btn bg-blue',
   text: "#{ActiveAdmin::LTE.icon('fa-skype')} Generate token"
 }
-```
 
-```ruby
 # if tag is link, options must be:
 options: {
   url: some_path,
   css_class: 'btn btn-danger',
   text: "#{ActiveAdmin::LTE.icon('fa-google')} Generate token"
 }
-```
 
-```ruby
 lte_button(tag: :button, options: options)
 ```
 
