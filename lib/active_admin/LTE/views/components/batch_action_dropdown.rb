@@ -24,9 +24,9 @@ module ActiveAdmin
 #   </ul>
 # </div>
           div  class: 'btn-group' do
-            button I18n.t("active_admin.batch_actions.button_label"), 
+            button I18n.t("active_admin.batch_actions.button_label"),
               type: 'button' ,
-              class: 'btn btn-default dropdown-toggle btn-sm',
+              class: 'btn btn-default disabled dropdown-toggle btn-sm',
               'data-toggle'=> 'dropdown' do
                 span class: 'caret'
             end

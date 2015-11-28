@@ -12,7 +12,7 @@ module ActiveAdmin::LTE
     attr_accessor :skin
 
     def initialize
-      @skin = 'yellow'
+      @skin = 'blue'
     end
   end
 end
