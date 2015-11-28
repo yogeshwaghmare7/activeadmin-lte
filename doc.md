@@ -3,25 +3,27 @@
 > Helpers u can use to generate **components**
 > or **plugins** in your pages.
 
->To render result of helper in page, all **helpers** method should be imbriced in *Active Admin Arbre compenent*. **para** or **div**
+>To render result of helper in page, all **helpers** method should be imbriced in *Active Admin Arbre compenent* ( **para** or **div**) or **active admin DSL** method.
+
 ```ruby
 # Example
 div do
-    modal_trigger(tag: :link, options: {
-        target: 'm_test', text: 'lolol', css_class: 'btn bg-green'
+  modal_trigger(tag: :link,
+    options: {
+      target: 'm_test', text: 'lolol', css_class: 'btn bg-green'
     })
 end
 ```
-
-
 
 ### Modal trigger button
 ```ruby
 # tag can be :link or :button
 # target is modal id
-modal_trigger(tag: :link, options: {
+modal_trigger(tag: :link,
+  options: {
     target: 'm_test', text: 'lolol', css_class: 'btn bg-green'
-})
+  }
+)
 ```
 
 ### Modal
@@ -36,30 +38,108 @@ end
 ### Button
 > Button can be are link or button
 ```ruby
-# if tag is button, options must be is:
-# type can be :button, :submit
+# if tag is button, options must be:
+# type can have :button or :submit as a value
 options: {
-    type: :submit,
-    css_class: 'btn bg-gray',
-    text: "#{ActiveAdmin::LTE.icon('fa-skype')} Generate token",
-}
-```
-
-# if tag is button, options must be is:
-options: {
-    type: :submit,
-    css_class: 'btn bg-gray',
-    text: "#{ActiveAdmin::LTE.icon('fa-skype')} Generate token",
+  type: :submit,
+  css_class: 'btn bg-blue',
+  text: "#{ActiveAdmin::LTE.icon('fa-skype')} Generate token"
 }
 ```
 
 ```ruby
-lte_button(tag: :button,
-  options: {
-    type: :submit,
-    css_class: 'btn bg-gray',
-    text: "#{ActiveAdmin::LTE.icon('fa-skype')} Generate token",
-  })
+# if tag is link, options must be:
+options: {
+  url: some_path,
+  css_class: 'btn btn-danger',
+  text: "#{ActiveAdmin::LTE.icon('fa-google')} Generate token"
+}
+```
+
+```ruby
+lte_button(tag: :button, options: options)
+```
+
+### Simple info box
+```ruby
+info_box(
+  color: :yellow, icon: 'fa-flag-o',
+  data: {
+    text: 'Wtf',
+    number: '13,123'
+  }
+)
+```
+
+### Info box with progress bar
+```ruby
+# progress is progress bar value exprimed in percent
+info_box_progress(
+  color: :aqua, icon: 'fa-star-o',
+  data: {
+    text: 'Likes', number: '93,123', progress: 70,
+    description: 'The only thing'
+  }
+)
+```
+### Crarousel
+> Generate carousel for display images.
+> Follow back example to use
+```ruby
+# id is carousel id.
+# images is a image collection.
+# image is a open struct and attributes are:
+# - src         | link to get image
+# - description | image description. This is optional.
+div do
+  images = %w(media logo thumbnail pitch_photo market_photo).map do |p|
+    image = OpenStruct.new
+    image.description = I18n.t("media.#{p}")
+    image.src = media_path(resource.send(field))
+    image
+  end
+  carousel(id: 'sheet_images', images: images)
+end
+```
+
+### Active Admin sidebar
+> I implemented more new options in sidebar method for visual. All the new options are optional. See the example
+
+```ruby
+# border(true or false). Add border under panel border.
+# collapse(true or false). Add collapse action in panel.
+# type is panel color. (:default, :danger, :info, :success, :warning)
+# icon is used in title. font-awesome font
+sidebar 'Actions', only: :show, border: true, collapse: true, type: :danger, icon: 'fa-star-o' do
+    para project_sheet.pitch.try :html_safe
+end
+```
+
+### Active Admin panel
+> I implemented more new options in sidebar method for visual. All the new options are optional. See the example
+
+```ruby
+# border(true or false). Add border under panel border.
+# collapse(true or false). Add collapse action in panel.
+# type is panel color. (:default, :danger, :info, :success, :warning)
+# icon is used in title. font-awesome font
+panel 'User', border: true, type: :info, icon: 'fa-user' do
+  attributes_table_for user do
+    row :id
+    row :first_name
+    row :last_name
+    row :address
+  end
+end
+
+panel 'project', collapse: true, type: :danger, icon: 'fa-bank' do
+  attributes_table_for project do
+    row :id
+    row :title
+    row :localisation
+    row :user
+  end
+end
 ```
 Type can have value in this list: [:default]
   * See HTML in the right

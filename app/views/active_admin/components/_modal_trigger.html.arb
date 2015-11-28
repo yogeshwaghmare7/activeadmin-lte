@@ -1,9 +1,0 @@
-if type.to_sym == :link
-  para link_to text, "#", data: { toggle: "modal", target: "##{target}" }
-else
-  para do
-    button type: "button", class: "btn btn-primary", :'data-toggle' => "modal", :'data-target' => "##{target}" do
-      text_node text
-    end
-  end
-end
