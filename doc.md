@@ -16,6 +16,7 @@ end
 ```
 
 ### Modal trigger button
+> Generate modal trigger button. Button can be link or button
 ```ruby
 # tag can be :link or :button
 # target is modal id
@@ -27,6 +28,7 @@ modal_trigger(tag: :link,
 ```
 
 ### Modal
+> Generate and render modal with content
 ```ruby
 # Type value is [:default, :success, :warning, :danger, :info]
 # Block content converted to modal content
@@ -82,6 +84,7 @@ info_box_progress(
   }
 )
 ```
+
 ### Crarousel
 > Generate carousel for display images.
 > Follow back example to use
@@ -139,6 +142,7 @@ panel 'project', collapse: true, type: :danger, icon: 'fa-bank' do
   end
 end
 ```
+
 Type can have value in this list: [:default]
   * See HTML in the right
   * Magic
