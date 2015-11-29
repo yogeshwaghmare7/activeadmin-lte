@@ -45,3 +45,18 @@ header#header .navbar{
     color: rgb(71, 71, 71);
   }
 }
+
+.chartJs{
+  width: 100% !important;
+}
+
+.columns{
+  .column{
+    display: inline-block;
+    vertical-align: top;
+    float: left;
+  }
+  .column:first-child{
+    // margin-right: 1.6% !important;
+  }
+}

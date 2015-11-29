@@ -8,6 +8,7 @@
 #= require admin-lte/plugins/jquery.velocity.min
 #= require admin-lte/plugins/jquery.slimscroll
 #= require admin-lte/plugins/select2/select2.min
+#= require admin-lte/plugins/Chart
 
 #= require admin-lte/bootstrap/bootstrap
 #= require admin-lte/bootstrap/bootstrap.wysiwyg
