@@ -9,9 +9,6 @@ module ActiveAdmin
         def build(section)
           @section = section
           @options = section.options
-          puts '--------------------'
-          puts @options
-          puts '--------------------'
           super(@section.title, @options)
           add_class @section.custom_class if @section.custom_class
           self.id = @section.id

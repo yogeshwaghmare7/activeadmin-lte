@@ -60,3 +60,62 @@ header#header .navbar{
     // margin-right: 1.6% !important;
   }
 }
+
+.timeline-header{
+  font-size: 14px !important;
+}
+
+#footer.main-footer{
+  margin-left: 0;
+  p{
+    margin-bottom: 0;
+  }
+}
+
+.breadcrumb-block{
+  .breadcrumb{
+    li{
+      a{
+        > .fa{
+          margin-right: 5px;
+        }
+        &:hover{
+          color:#DD4B39;
+        }
+      }
+      &:last-child a{
+        color:#DD4B39;
+      }
+    }
+  }
+}
+
+
+.index-filter{
+  .filter_select{
+    .select2{
+      width: 90% !important;
+      .select2-selection{
+        border: none;
+      }
+
+    }
+  }
+
+  .select_and_search{
+    .select2{
+      width: 35% !important;
+      .select2-selection{
+        border: none;
+        border-right: 1px solid #d2d6de;
+      }
+    }
+  }
+  input[type='submit']{
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  label{
+    font-weight: normal;
+  }
+}

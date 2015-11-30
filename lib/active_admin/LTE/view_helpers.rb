@@ -29,8 +29,8 @@ module ActiveAdmin
           clear_filter = url_for(params.except(:q, :page, :commit,:utf8))
 
           buttons = content_tag :div, class: "actions" do
-            f.submit(I18n.t('active_admin.filters.buttons.filter'), class: 'btn btn-primary btn-flat') +
-              link_to(I18n.t('active_admin.filters.buttons.clear'), clear_filter, class: 'btn bg-maroon btn-flat') +
+            f.submit(I18n.t('active_admin.filters.buttons.filter'), class: 'btn btn-success btn-flat') +
+              link_to(I18n.t('active_admin.filters.buttons.clear'), clear_filter, class: 'btn btn-default btn-flat') +
               hidden_field_tags_for(params, except: except_hidden_fields)
           end
 

@@ -16,6 +16,7 @@
 #= require admin-lte/hack/treeview
 #= require admin-lte/hack/sidebar
 #= require admin-lte/hack/selectable
+#= require admin-lte/hack/footer
 
 #= require admin-lte/app
 #= require_self
