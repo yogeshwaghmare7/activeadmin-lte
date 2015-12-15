@@ -142,19 +142,26 @@ module ActiveAdmin
 
           def defaults(resource, options = {})
             links = '<div class="text-center table-action"><div class="btn-group">'
+            # I18n.t('active_admin.view')
+            # I18n.t('active_admin.edit')
+            # I18n.t('active_admin.delete')
+            show_link = link_to(ActiveAdmin::LTE.icon('fa-eye').html_safe, resource_path(resource), class: "member_link view_link btn btn-xs btn-info #{options[:css_class]}")
+
+            edit_link = link_to(ActiveAdmin::LTE.icon('fa-pencil').html_safe, edit_resource_path(resource), class: "member_link edit_link btn btn-xs bg-orange #{options[:css_class]}")
+
+            delete_link = link_to(ActiveAdmin::LTE.icon('fa-trash').html_safe, resource_path(resource), class: "member_link delete_link btn btn-xs btn-danger #{options[:css_class]}",
+              method: :delete, data: {confirm: I18n.t('active_admin.delete_confirmation')})
 
             if controller.action_methods.include?('show') && authorized?(ActiveAdmin::Auth::READ, resource)
-              links << link_to(I18n.t('active_admin.view'), resource_path(resource), class: "member_link view_link btn btn-xs btn-info #{options[:css_class]}")
+              links << show_link
             end
 
             if controller.action_methods.include?('edit') && authorized?(ActiveAdmin::Auth::UPDATE, resource)
-              links << link_to(I18n.t('active_admin.edit'), edit_resource_path(resource), class:
-               "member_link edit_link btn btn-xs bg-orange #{options[:css_class]}")
+              links << edit_link
             end
 
             if controller.action_methods.include?('destroy') && authorized?(ActiveAdmin::Auth::DESTROY, resource)
-              links << link_to(I18n.t('active_admin.delete'), resource_path(resource), class: "member_link delete_link btn btn-xs btn-danger #{options[:css_class]}",
-                method: :delete, data: {confirm: I18n.t('active_admin.delete_confirmation')})
+              links << delete_link
             end
 
             links << '</div></div>'

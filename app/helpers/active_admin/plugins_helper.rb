@@ -6,14 +6,23 @@
 # |_|               |___/
 
 module ActiveAdmin::PluginsHelper
-  def chart_js_line_chart(labels:, datasets:,  options: nil)
+  def chart_js_line_chart(labels:, datasets:,  options: )
+    raise 'labels must be a array' unless labels.is_a? Array
+    raise 'datasets must be a array' unless datasets.is_a? Array
+    raise 'options must be a hash' unless options.is_a? Hash
+
+    options.deep_symbolize_keys!
+    options[:width]  ||= 400
+    options[:height] ||= 300
+
     colorize_dataset(datasets)
+
     render 'active_admin/components/chartjs', labels: labels, datasets: datasets, options: options
   end
 
   def colorize_dataset(datasets)
     datasets.each do |dataset|
-      r, g, b = (0..2).map { rand(255).to_s }
+      r, g, b = (0..2).map { rand(250).to_s }
       dataset.fill  = "rgba(#{r}, #{g}, #{b}, 0.2)"
       dataset.color = "rgba(#{r}, #{g}, #{b}, 1)"
     end
