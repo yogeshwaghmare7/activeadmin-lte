@@ -43,9 +43,10 @@ module ActiveAdmin
             li.add_class 'active' if item.current? assigns[:current_tab]
             icon =
               if is_child
-                '<i class="fa fa-circle-o"></i>'
+                # '<i class="fa fa-circle-o"></i>'
               else
-                "<i class='fa #{ActiveAdmin::LTE.icon_collection.sample}'></i>"
+                '<i class="fa fa-circle-o"></i>'
+                # "<i class='fa #{ActiveAdmin::LTE.icon_collection.sample}'></i>"
               end
 
             carret =
