@@ -150,10 +150,10 @@ module ActiveAdmin
 
           def build_flash_icon flash_type
             icon_class_map ={
-              'danger'  => 'fa fa-ban',
-              'success'=> 'fa fa-check',
-              'warning'=> 'fa fa-warning',
-              'info'=> 'fa fa-info',
+              'danger' => 'fa fa-ban',
+              'success' => 'fa fa-check',
+              'warning' => 'fa fa-warning',
+              'info' => 'fa fa-info',
             }
 
             raw = <<-END.strip_heredoc

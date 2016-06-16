@@ -34,6 +34,7 @@ module ActiveAdmin::ComponentsHelper
   end
 
   def lte_button(tag:, options: {})
+    options.symbolize_keys!
     url  = options.delete(:url)
     type = options.delete(:type)
     text = options.delete(:text)
