@@ -127,3 +127,18 @@ header#header .navbar{
 }
 
 #main_content{padding-bottom: 50px;}
+
+.action_item{
+  a{
+    @extend .btn;
+    @extend .bg-green;
+  }
+}
+
+
+.tabs{
+  margin-bottom: 20px;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  border-radius: 3px;
+}

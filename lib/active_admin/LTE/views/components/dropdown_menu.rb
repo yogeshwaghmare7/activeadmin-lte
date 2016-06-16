@@ -47,7 +47,7 @@ module ActiveAdmin
 
         def build_button(name, button_options)
           button_options[:class] ||= ''
-          button_options[:class] << ' dropdown-toggle btn bg-green'
+          button_options[:class] << ' dropdown-toggle btn btn-default'
 
           button_options[:href] = '#'
           button_options[:'data-toggle'] = 'dropdown'
@@ -60,13 +60,11 @@ module ActiveAdmin
 
         def build_menu(options)
           options[:class] ||= ''
-          options[:class] << ' dropdown_menu_list'
+          options[:class] << ' dropdown-menu'
 
           menu_list = nil
 
-          div class: 'dropdown_menu_list_wrapper' do
-            menu_list = ul(options)
-          end
+          menu_list = ul(options)
 
           menu_list
         end

@@ -1,13 +1,12 @@
 module ActiveAdmin
   module LTE
     module Views
-
       class IndexAsTable < ActiveAdmin::Component
         def build(page_presenter, collection)
           table_options = {
             id: "index_table_#{active_admin_config.resource_name.plural}",
             sortable: true,
-            class: "index_table index table",
+            class: 'index_table index table',
             i18n: active_admin_config.resource_class,
             paginator: page_presenter[:paginator] != false,
             row_class: page_presenter[:row_class]
@@ -35,7 +34,7 @@ module ActiveAdmin
         end
 
         def self.index_name
-          "table"
+          'table'
         end
 
         #
@@ -43,7 +42,6 @@ module ActiveAdmin
         # methods for quickly displaying items on the index page
         #
         class IndexTableFor < ::ActiveAdmin::LTE::Views::TableFor
-
           # Display a column for checkbox
           def selectable_column
             return unless active_admin_config.batch_actions.any?
@@ -63,7 +61,7 @@ module ActiveAdmin
             raise "#{resource_class.name} as no primary_key!" unless resource_class.primary_key
             column(resource_class.human_attribute_name(resource_class.primary_key), sortable: resource_class.primary_key) do |resource|
               if controller.action_methods.include?('show')
-                link_to resource.id, resource_path(resource), class: "resource_id_link"
+                link_to resource.id, resource_path(resource), class: 'resource_id_link'
               else
                 resource.id
               end
@@ -114,7 +112,7 @@ module ActiveAdmin
 
             column name, options do |resource|
               if dropdown
-                dropdown_menu dropdown_name do
+                dropdown_menu dropdown_name, class: 'dropdown' do
                   items_default_actions(resource) if defaults
                   instance_exec(resource, &block) if block_given?
                 end
@@ -125,7 +123,7 @@ module ActiveAdmin
             end
           end
 
-        private
+          private
 
           def items_default_actions(resource)
             if controller.action_methods.include?('show') && authorized?(ActiveAdmin::Auth::READ, resource)
@@ -136,7 +134,7 @@ module ActiveAdmin
             end
             if controller.action_methods.include?('destroy') && authorized?(ActiveAdmin::Auth::DESTROY, resource)
               item I18n.t('active_admin.delete'), resource_path(resource), class: 'delete_link',
-                method: :delete, data: {confirm: I18n.t('active_admin.delete_confirmation')}
+                                                                           method: :delete, data: { confirm: I18n.t('active_admin.delete_confirmation') }
             end
           end
 
@@ -150,7 +148,7 @@ module ActiveAdmin
             edit_link = link_to(ActiveAdmin::LTE.icon('fa-pencil').html_safe, edit_resource_path(resource), class: "member_link edit_link btn btn-xs bg-orange #{options[:css_class]}")
 
             delete_link = link_to(ActiveAdmin::LTE.icon('fa-trash').html_safe, resource_path(resource), class: "member_link delete_link btn btn-xs btn-danger #{options[:css_class]}",
-              method: :delete, data: {confirm: I18n.t('active_admin.delete_confirmation')})
+                                                                                                        method: :delete, data: { confirm: I18n.t('active_admin.delete_confirmation') })
 
             if controller.action_methods.include?('show') && authorized?(ActiveAdmin::Auth::READ, resource)
               links << show_link
@@ -171,12 +169,11 @@ module ActiveAdmin
           class TableActions < ActiveAdmin::Component
             builder_method :table_actions
 
-            def item *args
+            def item(*args)
               text_node link_to *args
             end
           end
         end # IndexTableFor
-
       end # IndexAsTable
     end
   end

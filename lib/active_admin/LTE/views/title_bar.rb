@@ -2,12 +2,12 @@ module ActiveAdmin
   module LTE
     module Views
       class TitleBar < Component
-
         def tag_name
           'section'
         end
+
         def build(title, action_items)
-          super(id: "title_bar", class: "content-header")
+          super(id: 'title_bar', class: 'content-header')
           @title = title
           @action_items = action_items
           build_titlebar_left
@@ -27,7 +27,7 @@ module ActiveAdmin
           end
         end
 
-        def breadcrumb_root root_link
+        def breadcrumb_root(root_link)
           match = root_link.match(/\>(.*)\</)
           text = match[1]
           text_with_icon = "> <i class=\"fa fa-dashboard\"></i>  #{text} <"
@@ -35,17 +35,20 @@ module ActiveAdmin
           raw_html.html_safe
         end
 
-        def build_breadcrumb(separator = "/")
+        def build_breadcrumb(_separator = '/')
           breadcrumb_config = active_admin_config && active_admin_config.breadcrumb
 
-          links = if breadcrumb_config.is_a?(Proc)
-            instance_exec(controller, &active_admin_config.breadcrumb)
-          elsif breadcrumb_config.present?
-            breadcrumb_links
-          end
+          links =
+            if breadcrumb_config.is_a?(Proc)
+              instance_exec(controller, &active_admin_config.breadcrumb)
+            elsif breadcrumb_config.present?
+              breadcrumb_links
+            end
+
           return unless links.present? && links.is_a?(::Array)
+
           div class: 'breadcrumb-block' do
-            ol class: "breadcrumb" do
+            ol class: 'breadcrumb' do
               root = links.shift
               li do
                 text_node breadcrumb_root(root)
@@ -66,7 +69,6 @@ module ActiveAdmin
         def build_action_items
           insert_tag(view_factory.action_items, @action_items) if @action_items.any?
         end
-
       end
     end
   end

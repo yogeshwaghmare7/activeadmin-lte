@@ -32,7 +32,7 @@ module ActiveAdmin
             link_text = text_for_default_action_item \
               I18n.t('active_admin.delete_model', model: active_admin_config.resource_label), 'fa fa-ban'
             link_to link_text, resource_path(resource),
-              method: :delete, data: {confirm: I18n.t('active_admin.delete_confirmation')}, class: 'btn btn-danger'
+                    method: :delete, data: { confirm: I18n.t('active_admin.delete_confirmation') }, class: 'btn btn-danger'
           end
         end
       end
@@ -44,12 +44,11 @@ module ActiveAdmin
       def new_find_index_class(symbol_or_class)
         case symbol_or_class
         when Symbol
-          ::ActiveAdmin::LTE::Views.const_get("IndexAs" + symbol_or_class.to_s.camelcase)
+          ::ActiveAdmin::LTE::Views.const_get('IndexAs' + symbol_or_class.to_s.camelcase)
         when Class
           symbol_or_class
         end
       end
-
     end
   end
 end

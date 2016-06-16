@@ -3,7 +3,6 @@ module ActiveAdmin
     module Views
       module Pages
         class Base < Arbre::HTML::Document
-
           def build(*args)
             super
             add_classes_to_body
@@ -25,16 +24,16 @@ module ActiveAdmin
 
           def add_classes_to_body
             @body.add_class(params[:action])
-            @body.add_class(params[:controller].gsub('/', '_'))
-            @body.add_class("active_admin")
-            @body.add_class("logged_in")
-            @body.add_class(active_admin_namespace.name.to_s + "_namespace")
+            @body.add_class(params[:controller].tr('/', '_'))
+            @body.add_class('active_admin')
+            @body.add_class('logged_in')
+            @body.add_class(active_admin_namespace.name.to_s + '_namespace')
             @body.add_class("skin-#{ActiveAdmin::LTE.configuration.skin} fixed")
           end
 
           def build_active_admin_head
             within @head do
-              insert_tag Arbre::HTML::Title, [title, render_or_call_method_or_proc_on(self, active_admin_application.site_title)].join(" | ")
+              insert_tag Arbre::HTML::Title, [title, render_or_call_method_or_proc_on(self, active_admin_application.site_title)].join(' | ')
               active_admin_application.stylesheets.each do |style, options|
                 text_node stylesheet_link_tag(style, options).html_safe
               end
@@ -54,14 +53,14 @@ module ActiveAdmin
           def build_page
             within @body do
               build_header
-              div class: "wrapper row-offcanvas row-offcanvas-left" do
-                aside class: "left-side sidebar-offcanvas" do
-                  section class: "sidebar" do
+              div class: 'wrapper row-offcanvas row-offcanvas-left' do
+                aside class: 'left-side sidebar-offcanvas' do
+                  section class: 'sidebar' do
                     build_user_panel
                     build_global_navigation
                   end
                 end
-                aside class: "right-side" do
+                aside class: 'right-side' do
                   build_title_bar unless active_admin_config.title_bar == false
                   build_page_content
                   build_footer
@@ -72,7 +71,7 @@ module ActiveAdmin
 
           def build_action_items
             action_items = action_items_for_action
-            insert_tag(view_factory.action_items, action_items  ) if action_items.any?
+            insert_tag(view_factory.action_items, action_items) if action_items.any?
           end
 
           def build_header
@@ -88,7 +87,7 @@ module ActiveAdmin
           end
 
           def build_page_content
-            section class: "content" do
+            section class: 'content' do
               div class: 'row' do
                 div class: 'col-md-12' do
                   # build_page_tools
@@ -120,26 +119,26 @@ module ActiveAdmin
           end
 
           def avatar_name
-           display_name current_active_admin_user
+            display_name current_active_admin_user
           end
 
           def avatar_alt
-            "some user"
+            'some user'
           end
 
           def build_flash_messages
             flash_type_map = {
-              "alert" => 'danger',
-              "notice" =>'success',
-              "warning" =>'warning',
-              "info" =>'info',
+              'alert' => 'danger',
+              'notice' => 'success',
+              'warning' => 'warning',
+              'info' => 'info'
             }
             if flash_messages.any?
               div class: 'flashes no-print' do
                 flash_messages.each do |type, message|
                   flash_type = flash_type_map[type.to_s]
                   div class: "flash flash_#{type} alert alert-#{flash_type}" do
-                    button '×', type: "button", class: "close", :'data-dismiss' => "alert", :'aria-hidden' => true
+                    button '×', type: 'button', class: 'close', :'data-dismiss' => 'alert', :'aria-hidden' => true
                     build_flash_icon flash_type
                     text_node message
                   end
@@ -148,12 +147,12 @@ module ActiveAdmin
             end
           end
 
-          def build_flash_icon flash_type
-            icon_class_map ={
+          def build_flash_icon(flash_type)
+            icon_class_map = {
               'danger' => 'fa fa-ban',
               'success' => 'fa fa-check',
               'warning' => 'fa fa-warning',
-              'info' => 'fa fa-info',
+              'info' => 'fa fa-info'
             }
 
             raw = <<-END.strip_heredoc
@@ -169,8 +168,8 @@ module ActiveAdmin
           end
 
           def build_main_content_wrapper
-            div id: "main_content_wrapper" do
-              div id: "main_content" do
+            div id: 'main_content_wrapper' do
+              div id: 'main_content' do
                 main_content
               end
             end
@@ -186,14 +185,14 @@ module ActiveAdmin
 
           # Set's the page title for the layout to render
           def set_page_title
-            set_ivar_on_view "@page_title", title
+            set_ivar_on_view '@page_title', title
           end
 
           # Returns the sidebar sections to render for the current action
           def sidebar_sections_for_action
             if active_admin_config && active_admin_config.sidebar_sections?
               active_admin_config.sidebar_sections_for(params[:action], self)
-                .select{|section| section.name != :filters}
+                                 .select { |section| section.name != :filters }
             else
               []
             end
@@ -209,7 +208,7 @@ module ActiveAdmin
 
           # Renders the sidebar
           def build_sidebar
-            div id: "sidebar" do
+            div id: 'sidebar' do
               sidebar_sections_for_action
                 .collect do |section|
                 sidebar_section(section)
@@ -226,11 +225,10 @@ module ActiveAdmin
             insert_tag view_factory.footer
             div style: 'display: none' do
               active_admin_config.registered_js.each do |js|
-                text_node(javascript_include_tag('/'+js[:file]))
+                text_node(javascript_include_tag('/' + js[:file]))
               end
             end
           end
-
         end
       end
     end
