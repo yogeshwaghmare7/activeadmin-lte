@@ -1,9 +1,8 @@
-#require 'active_admin/views/components/popover'
+# require 'active_admin/views/components/popover'
 
 module ActiveAdmin
   module LTE
     module Views
-
       # Action List - A button with a drop down menu of links
       #
       # Creating a new action list:
@@ -29,10 +28,10 @@ module ActiveAdmin
           options = options.dup
 
           # Easily set options for the button or menu
-          button_options  = options.delete(:button) || {}
+          button_options = options.delete(:button) || {}
           menu_options = options.delete(:menu) || {}
 
-          @button  = build_button(name, button_options)
+          @button = build_button(name, button_options)
           @menu = build_menu(menu_options)
 
           super(options)
@@ -48,11 +47,15 @@ module ActiveAdmin
 
         def build_button(name, button_options)
           button_options[:class] ||= ''
-          button_options[:class] << ' dropdown_menu_button'
+          button_options[:class] << ' dropdown-toggle btn bg-green'
 
           button_options[:href] = '#'
+          button_options[:'data-toggle'] = 'dropdown'
 
-          a name, button_options
+          a button_options do
+            span name
+            span class: 'caret'
+          end
         end
 
         def build_menu(options)
@@ -61,15 +64,13 @@ module ActiveAdmin
 
           menu_list = nil
 
-          div :class => 'dropdown_menu_list_wrapper' do
+          div class: 'dropdown_menu_list_wrapper' do
             menu_list = ul(options)
           end
 
           menu_list
         end
-
       end
-
     end
   end
 end
