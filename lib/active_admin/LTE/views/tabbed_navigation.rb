@@ -42,7 +42,9 @@ module ActiveAdmin
           li id: item.id do |li|
             li.add_class 'active' if item.current? assigns[:current_tab]
             icon =
-              unless is_child
+              if is_child
+                '<i class="fa fa-circle-o"></i>'
+              else
                 "<i class='fa #{ActiveAdmin::LTE.icon_collection.sample}'></i>"
               end
 
