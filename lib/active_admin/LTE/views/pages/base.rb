@@ -28,7 +28,7 @@ module ActiveAdmin
             @body.add_class('active_admin')
             @body.add_class('logged_in')
             @body.add_class(active_admin_namespace.name.to_s + '_namespace')
-            @body.add_class("skin-blue fixed")
+            @body.add_class("skin-#{ActiveAdmin::LTE.configuration.skin} fixed")
           end
 
           def build_active_admin_head
@@ -106,7 +106,7 @@ module ActiveAdmin
                           <img src="#{avatar_path}" class="img-circle" alt="#{avatar_alt}" />
                       </div>
                       <div class="pull-left info">
-                          <p>Hello, <span class="avatar-name">#{avatar_name}</span></p>
+                        #{avatar_name}
                       </div>
                   </div>
                   END

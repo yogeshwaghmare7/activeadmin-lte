@@ -5,7 +5,7 @@ module ActiveAdmin::LTE
 
   def self.configure
     self.configuration ||= Configuration.new
-    yield(configuration)
+    #yield(configuration)
   end
 
   class Configuration
