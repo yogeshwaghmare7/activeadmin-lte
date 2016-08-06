@@ -22,7 +22,7 @@ TODO
 
 ## Version
 
-AdminLTE - Version 2.3.6
+AdminLTE - Version 2.3.0
 
 ### Version of Rails tested
 
