@@ -1,7 +1,6 @@
 module ActiveAdmin
   module LTE
     module Views
-
       # Renders an ActiveAdmin::Menu as a set of unordered list items.
       #
       # This component takes cares of deciding which items should be
@@ -9,7 +8,6 @@ module ActiveAdmin
       #
       # The entire component is rendered within one ul element.
       class TabbedNavigation < Component
-
         attr_reader :menu
 
         # Build a new tabbed navigation component.
@@ -40,27 +38,41 @@ module ActiveAdmin
           end
         end
 
-        def build_menu_item(item)
+        def build_menu_item(item, is_child = false)
           li id: item.id do |li|
-            li.add_class "active" if item.current? assigns[:current_tab]
+            li.add_class 'active' if item.current? assigns[:current_tab]
+            icon =
+              if is_child
+                # '<i class="fa fa-circle-o"></i>'
+              else
+                '<i class="fa fa-circle-o"></i>'
+                # "<i class='fa #{ActiveAdmin::LTE.icon_collection.sample}'></i>"
+              end
+
+            carret =
+              if item.items(self).presence
+                direction = item.current?(assigns[:current_tab]) ? :down : :left
+                "<i class='fa fa-caret-#{direction} main-menu-dropdown-caret'></i>"
+              end
+
             label_with_icon = <<-END.strip_heredoc.html_safe
-              <i class="fa #{ActiveAdmin::LTE.icon_collection.sample}"></i>
+              #{icon}
+              #{carret}
               #{item.label(self)}
             END
             text_node link_to label_with_icon, item.url(self), item.html_options
 
             if children = item.items(self).presence
-              li.add_class "has_nested"
-              i class: 'fa fa-caret-left main-menu-dropdown-caret'
+              li.add_class 'has_nested'
               ul class: 'treeview-menu' do
-                children.each{ |child| build_menu_item child }
+                children.each { |child| build_menu_item child, true }
               end
             end
           end
         end
 
         def default_options
-          { id: "tabs", class: "sidebar-menu" }
+          { id: 'tabs', class: 'sidebar-menu' }
         end
       end
     end

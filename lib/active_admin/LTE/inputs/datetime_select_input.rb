@@ -1,7 +1,7 @@
 module ActiveAdmin
   module LTE
     module Inputs
-      class DatetimeSelectInput <FormtasticBootstrap::Inputs::DatetimeSelectInput
+      class DatetimeSelectInput < FormtasticBootstrap::Inputs::DatetimeSelectInput
         include Formtastic::Inputs::Base::Stringish
         def to_html
           bootstrap_wrapping do

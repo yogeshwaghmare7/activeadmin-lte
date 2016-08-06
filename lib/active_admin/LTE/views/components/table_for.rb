@@ -8,10 +8,12 @@ module ActiveAdmin
           'table'
         end
 
-        def build(obj, options = {})
+        def build(obj, *attrs)
+          options         = attrs.extract_options!
           @sortable       = options.delete(:sortable)
-          @resource_class = options.delete(:i18n)
           @collection     = obj.respond_to?(:each) && !obj.is_a?(Hash) ? obj : [obj]
+          @resource_class = options.delete(:i18n)
+          @resource_class ||= @collection.klass if @collection.respond_to? :klass
           @columns        = []
           @row_class      = options.delete(:row_class)
 
@@ -19,6 +21,7 @@ module ActiveAdmin
           options[:class] ||= ''
           options[:class] += ' table table-hover'
           super(options)
+          columns(*attrs)
         end
 
         def column(*args, &block)
@@ -40,6 +43,10 @@ module ActiveAdmin
               build_table_cell col, item
             end
           end
+        end
+
+        def columns(*attrs)
+          attrs.each {|attr| column(attr) }
         end
 
         def sortable?
@@ -117,9 +124,15 @@ module ActiveAdmin
           value
         end
 
+        # def is_boolean?(data, item)
+        #   if item.respond_to? :column_for_attribute
+        #     attr = item.has_attribute?(data) and attr.type == :boolean
+        #   end
+        # end
+
         def is_boolean?(data, item)
-          if item.respond_to? :column_for_attribute
-            attr = item.column_for_attribute(data) and attr.type == :boolean 
+          if item.class.respond_to? :columns_hash
+            column = item.class.columns_hash[data.to_s] and column.type == :boolean
           end
         end
 
@@ -130,11 +143,9 @@ module ActiveAdmin
           @current_sort ||= begin
             order_clause = OrderClause.new params[:order]
 
-            if order_clause.valid?
-              [order_clause.field, order_clause.order]
-            else
-              []
-            end
+            return [] unless order_clause.valid?
+
+            [order_clause.field, order_clause.order]
           end
         end
 
@@ -158,7 +169,7 @@ module ActiveAdmin
 
           attr_accessor :title, :data , :html_class
 
-          def initialize(*args, &block) 
+          def initialize(*args, &block)
             @options = args.extract_options!
 
             @title = args[0]
@@ -174,15 +185,25 @@ module ActiveAdmin
             @resource_class = args[2]
           end
 
+          # def sortable?
+          #   if @data.is_a?(Proc)
+          #     [String, Symbol].include?(@options[:sortable].class)
+          #   elsif @options.has_key?(:sortable)
+          #     @options[:sortable]
+          #   elsif @data.respond_to?(:to_sym) && @resource_class
+          #     !@resource_class.reflect_on_association(@data.to_sym)
+          #   else
+          #     true
+          #   end
+          # end
+
           def sortable?
-            if @data.is_a?(Proc)
-              [String, Symbol].include?(@options[:sortable].class)
-            elsif @options.has_key?(:sortable)
-              @options[:sortable]
-            elsif @data.respond_to?(:to_sym) && @resource_class
-              !@resource_class.reflect_on_association(@data.to_sym)
+            if @options.has_key?(:sortable)
+              !!@options[:sortable]
+            elsif @resource_class
+              @resource_class.column_names.include?(sort_column_name)
             else
-              true
+              @title.present?
             end
           end
 
@@ -204,14 +225,27 @@ module ActiveAdmin
           #   column('Username', sortable: 'login'){ @user.pretty_name }
           #   # => Sort key will be 'login'
           #
+
+          # def sort_key
+          #   # If boolean or nil, use the default sort key.
+          #   if @options[:sortable] == true || @options[:sortable] == false || @options[:sortable].nil?
+          #     @data.to_s
+          #   else
+          #     @options[:sortable].to_s
+          #   end
+          # end
+
           def sort_key
             # If boolean or nil, use the default sort key.
-            if @options[:sortable] == true || @options[:sortable] == false || @options[:sortable].nil?
+            if @options[:sortable] == true || @options[:sortable] == false
               @data.to_s
+            elsif @options[:sortable].nil?
+              sort_column_name
             else
               @options[:sortable].to_s
             end
           end
+
 
           def pretty_title
             if @title.is_a? Symbol
@@ -225,6 +259,13 @@ module ActiveAdmin
               @title
             end
           end
+
+          private
+
+          def sort_column_name
+            @data.is_a?(Symbol) ? @data.to_s : @title.to_s
+          end
+
         end
       end
     end

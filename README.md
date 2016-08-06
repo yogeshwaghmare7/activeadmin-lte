@@ -1,29 +1,29 @@
 # ActiveAdmin::LTE
 
-TODO: Write a gem description
+Theme for ActiveAdmin
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'active_admin-LTE'
+    gem "activeadmin-lte", git: "https://github.com/Cle61/activeadmin-lte"
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install active_admin-LTE
+Disable stylesheets of ActiveAdmin in your project. By default, remove this line to active_admin.scss
+```
+@import "active_admin/mixins";
+@import "active_admin/base";
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+### Custom the color
 
-## Contributing
+TODO
 
-1. Fork it ( https://github.com/[my-github-username]/active_admin-LTE/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+## Version
+
+AdminLTE - Version 2.3.6
+
+### Version of Rails tested
+
+- 4.2.4

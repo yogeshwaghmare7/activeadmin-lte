@@ -4,8 +4,12 @@ module ActiveAdmin
       module Pages
         class Form < Base
           def title
-            assigns[:page_title] || I18n.t("active_admin.#{params[:action]}_model",
-                                           model: active_admin_config.resource_label)
+            if form_presenter[:title]
+              render_or_call_method_or_proc_on(resource, form_presenter[:title])
+            else
+              assigns[:page_title] || I18n.t("active_admin.#{normalized_action}_model",
+                                        model: active_admin_config.resource_label)
+            end
           end
 
           def form_presenter
@@ -18,12 +22,8 @@ module ActiveAdmin
             if options[:partial]
               render options[:partial]
             else
-              div class: 'row' do
-                div class: 'col-md-8' do
-                  active_admin_lte_form_for resource, options do |f|
-                    instance_exec f, &form_presenter.block
-                  end
-                end
+              active_admin_lte_form_for resource, options do |f|
+                instance_exec f, &form_presenter.block
               end
             end
           end
@@ -33,7 +33,7 @@ module ActiveAdmin
           def default_form_options
             {
               url: default_form_path,
-              as: active_admin_config.resource_name.singular
+              as: active_admin_config.param_key
             }
           end
 
@@ -43,21 +43,51 @@ module ActiveAdmin
 
           def default_form_config
             ActiveAdmin::PagePresenter.new do |f|
-              attributes = f.send(:default_columns_for_object)
-              inputs = f.inputs.to_str
+              f.semantic_errors *f.object.errors.keys
 
               content = content_tag :div, class: 'box-body' do
-                inputs.html_safe
-              end.html_safe
+                f.inputs
+              end
 
               footer = content_tag :div, class: 'box-footer' do
-                f.submit(class: 'btn btn-primary').html_safe +
+                f.submit(class: 'btn btn-primary') +
                 link_to("Cancel <i class='fa fa-times'></i>".html_safe, url_for(action: :index), class: 'btn btn-warning cancel-btn')
-              end.html_safe
+              end
 
               content_tag :div, class: 'box' do
                 content + footer
-              end.html_safe
+              end
+            end
+          end
+
+          # def default_form_config
+          #   ActiveAdmin::PagePresenter.new do |f|
+          #     attributes = f.send(:default_columns_for_object)
+          #     inputs = f.inputs.to_str
+          #
+          #     content = content_tag :div, class: 'box-body' do
+          #       inputs.html_safe
+          #     end.html_safe
+          #
+          #     footer = content_tag :div, class: 'box-footer' do
+          #       f.submit(class: 'btn btn-primary').html_safe +
+          #       link_to("Cancel <i class='fa fa-times'></i>".html_safe, url_for(action: :index), class: 'btn btn-warning cancel-btn')
+          #     end.html_safe
+          #
+          #     content_tag :div, class: 'box' do
+          #       content + footer
+          #     end.html_safe
+          #   end
+          # end
+
+          def normalized_action
+            case params[:action]
+            when "create"
+              "new"
+            when "update"
+              "edit"
+            else
+              params[:action]
             end
           end
         end

@@ -59,7 +59,7 @@ module ActiveAdmin
       end
 
       def commit_action_with_cancel_link
-        action_name   = (object.new_record? ? 'Create' : 'Update')
+        action_name = (object.new_record? ? 'Create' : 'Update')
         resource_name = object.class.name
         <<-HTML.html_safe
         <div class="row">
@@ -149,34 +149,34 @@ module ActiveAdmin
 
       protected
 
-      def lte_input_class_name(as)
-        "ActiveAdmin::LTE::Inputs::#{as.to_s.camelize}Input"
-      end
+      # def lte_input_class_name(as)
+      #   "ActiveAdmin::LTE::Inputs::#{as.to_s.camelize}Input"
+      # end
+      #
+      # def active_admin_input_class_name(as)
+      #   "ActiveAdmin::Inputs::#{as.to_s.camelize}Input"
+      # end
 
-      def active_admin_input_class_name(as)
-        "ActiveAdmin::Inputs::#{as.to_s.camelize}Input"
-      end
-
-      def input_class(as)
-        @input_classes_cache ||= {}
-        @input_classes_cache[as] ||= begin
-          begin
-            custom_input_class_name(as).constantize
-          rescue NameError
-            begin
-              lte_input_class_name(as).constantize
-            rescue NameError
-              begin
-                active_admin_input_class_name(as).constantize
-              rescue NameError
-                standard_input_class_name(as).constantize
-              end
-            end
-          end
-        rescue NameError
-          raise Formtastic::UnknownInputError, "Unable to find input class for #{as}"
-        end
-      end
+      # def input_class(as)
+      #   @input_classes_cache ||= {}
+      #   @input_classes_cache[as] ||= begin
+      #     begin
+      #       custom_input_class_name(as).constantize
+      #     rescue NameError
+      #       begin
+      #         lte_input_class_name(as).constantize
+      #       rescue NameError
+      #         begin
+      #           active_admin_input_class_name(as).constantize
+      #         rescue NameError
+      #           standard_input_class_name(as).constantize
+      #         end
+      #       end
+      #     end
+      #   rescue NameError
+      #     raise Formtastic::UnknownInputError, "Unable to find input class for #{as}"
+      #   end
+      # end
 
       # This method calls the block it's passed (in our case, the `f.inputs` block)
       # and wraps the resulting HTML in a fieldset. If your block doesn't have a
@@ -228,7 +228,17 @@ module ActiveAdmin
           html: CGI.escapeHTML(html).html_safe, placeholder: placeholder
         }
       end
-
     end
+
+    # class FormBuilder < ::Formtastic::FormBuilder
+    #   self.input_namespaces = [::Object, ::ActiveAdmin::Inputs, ::Formtastic::Inputs]
+    #
+    #   # TODO: remove both class finders after formtastic 4 (where it will be default)
+    #   self.input_class_finder = ::Formtastic::InputClassFinder
+    #   self.action_class_finder = ::Formtastic::ActionClassFinder
+    #
+    #   attr_accessor :already_in_an_inputs_block
+    #
+    # end
   end
 end

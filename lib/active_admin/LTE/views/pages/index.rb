@@ -3,8 +3,6 @@ module ActiveAdmin
     module Views
       module Pages
         class Index < Base
-
-
           def title
             if Proc === config[:title]
               controller.instance_exec &config[:title]
@@ -16,11 +14,12 @@ module ActiveAdmin
           # Retreives the given page presenter, or uses the default.
           def config
             active_admin_config.get_page_presenter(:index, params[:as]) ||
-            ActiveAdmin::PagePresenter.new(as: :table)
+              ActiveAdmin::PagePresenter.new(as: :table)
           end
 
           # Render's the index configuration that was set in the
           # controller. Defaults to rendering the ActiveAdmin::Pages::Index::Table
+
           def main_content
             div class: 'box box-primary' do
               div class: 'box-header' do
@@ -30,9 +29,11 @@ module ActiveAdmin
                 end
                 filter_form_toggle if active_admin_config.filters.any?
               end
+
               div class: 'box-body table-responsive no-padding' do
                 build_collection
               end
+
               div class: 'box-footer' do
                 render_index_footer
               end
@@ -49,6 +50,7 @@ module ActiveAdmin
           #   end
           # end
           #
+
           include ::ActiveAdmin::Helpers::Collection
 
           def filter_form_toggle
@@ -80,7 +82,7 @@ module ActiveAdmin
           include ::ActiveAdmin::ViewHelpers::DownloadFormatLinksHelper
 
           def build_index_filter
-            active = ( request.query_parameters[:q] ? 'active' : '')
+            active = (request.query_parameters[:q] ? 'active' : '')
             div class: "index-filter-outer #{active}" do
               div class: 'index-filter' do
                 h3 class: 'no-margin' do
@@ -94,8 +96,8 @@ module ActiveAdmin
 
           def any_table_tools?
             active_admin_config.batch_actions.any? ||
-            active_admin_config.scopes.any? ||
-            active_admin_config.page_presenters[:index].try(:size).try(:>, 1)
+              active_admin_config.scopes.any? ||
+              active_admin_config.page_presenters[:index].try(:size).try(:>, 1)
           end
 
           def build_batch_actions_selector
@@ -117,9 +119,9 @@ module ActiveAdmin
           def build_index_list
             indexes = active_admin_config.page_presenters[:index]
 
-            if indexes.kind_of?(Hash) && indexes.length > 1
+            if indexes.is_a?(Hash) && indexes.length > 1
               index_classes = []
-              active_admin_config.page_presenters[:index].each do |type, page_presenter|
+              active_admin_config.page_presenters[:index].each do |_type, page_presenter|
                 index_classes << find_index_renderer_class(page_presenter[:as])
               end
 
@@ -131,19 +133,19 @@ module ActiveAdmin
           # page. To set this, use the :as option in the page_presenter block.
           def find_index_renderer_class(klass)
             klass.is_a?(Class) ? klass :
-              ::ActiveAdmin::LTE::Views.const_get("IndexAs" + klass.to_s.camelcase)
+              ::ActiveAdmin::LTE::Views.const_get('IndexAs' + klass.to_s.camelcase)
           end
 
           def render_blank_slate
-            blank_slate_content = I18n.t("active_admin.blank_slate.content", resource_name: active_admin_config.plural_resource_label)
+            blank_slate_content = I18n.t('active_admin.blank_slate.content', resource_name: active_admin_config.plural_resource_label)
             if controller.action_methods.include?('new') && authorized?(ActiveAdmin::Auth::CREATE, active_admin_config.resource_class)
-              blank_slate_content = [blank_slate_content, blank_slate_link].compact.join(" ")
+              blank_slate_content = [blank_slate_content, blank_slate_link].compact.join(' ')
             end
             insert_tag(view_factory.blank_slate, blank_slate_content)
           end
 
           def render_empty_results
-            empty_results_content = I18n.t("active_admin.pagination.empty", model: active_admin_config.plural_resource_label)
+            empty_results_content = I18n.t('active_admin.pagination.empty', model: active_admin_config.plural_resource_label)
             insert_tag(view_factory.blank_slate, empty_results_content)
           end
 
@@ -154,12 +156,14 @@ module ActiveAdmin
             pagination_total = config[:pagination_total].nil? ? true : config[:pagination_total]
             page_entries     = config[:page_entries].nil? ? true : config[:page_entries]
 
-            paginated_collection(collection, entry_name:       active_admin_config.resource_label,
-                                             entries_name:     active_admin_config.plural_resource_label(count: collection_size),
-                                             download_links:   download_links,
-                                             page_entries:     page_entries,
-                                             paginator:        paginator,
-                                             pagination_total: pagination_total)
+            paginated_collection(
+              collection, entry_name: active_admin_config.resource_label,
+                          entries_name: active_admin_config.plural_resource_label(count: collection_size),
+                          download_links: download_links,
+                          page_entries: page_entries,
+                          paginator: paginator,
+                          pagination_total: pagination_total
+            )
           end
 
           def render_index
@@ -172,18 +176,16 @@ module ActiveAdmin
           private
 
           def blank_slate_link
-            if config.options.has_key?(:blank_slate_link)
+            if config.options.key?(:blank_slate_link)
               blank_slate_link = config.options[:blank_slate_link]
-              if blank_slate_link.is_a?(Proc)
-                instance_exec(&blank_slate_link)
-              end
+              instance_exec(&blank_slate_link) if blank_slate_link.is_a?(Proc)
             else
               default_blank_slate_link
             end
           end
 
           def default_blank_slate_link
-            link_to(I18n.t("active_admin.blank_slate.link"), new_resource_path)
+            link_to(I18n.t('active_admin.blank_slate.link'), new_resource_path)
           end
         end
       end
