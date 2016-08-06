@@ -2,6 +2,8 @@
 
 Theme for ActiveAdmin
 
+![Alt text](/doc/skin.png?raw=true "Optional Title")
+
 ## Installation
 
 Add this line to your application's Gemfile:
