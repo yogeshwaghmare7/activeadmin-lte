@@ -6,11 +6,11 @@ require 'active_admin/LTE/version'
 Gem::Specification.new do |spec|
   spec.name          = "activeadmin-lte"
   spec.version       = ActiveAdmin::LTE::VERSION
-  spec.authors       = ["Armand Niampa", "Sam Ettahiri"]
+  spec.authors       = ["Clément Prod'homme", "Armand Niampa", "Sam Ettahiri"]
   spec.email         = ["armand@capsens.eu", "sam@capsens.eu"]
   spec.summary       = %q{AadminLTE ( Almsaeedstudio.com ) theme for ActiveAdmin }
   spec.description   = %q{AadminLTE ( Almsaeedstudio.com ) theme for ActiveAdmin }
-  spec.homepage      = "https://github.com/CapSens/activeadmin-lte"
+  spec.homepage      = "https://github.com/Cle61/activeadmin-lte"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

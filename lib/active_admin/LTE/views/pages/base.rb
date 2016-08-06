@@ -28,7 +28,7 @@ module ActiveAdmin
             @body.add_class('active_admin')
             @body.add_class('logged_in')
             @body.add_class(active_admin_namespace.name.to_s + '_namespace')
-            @body.add_class("skin-#{ActiveAdmin::LTE.configuration.skin} fixed")
+            @body.add_class("skin-blue fixed")
           end
 
           def build_active_admin_head
