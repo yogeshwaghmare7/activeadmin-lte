@@ -8,7 +8,7 @@ Theme for ActiveAdmin
 
 Add this line to your application's Gemfile:
 
-    gem "activeadmin-lte", git: "https://github.com/Cle61/activeadmin-lte"
+    gem "activeadmin-lte", git: "https://github.com/cle61/activeadmin-lte"
 
 Disable stylesheets of ActiveAdmin in your project. By default, remove this line to active_admin.scss
 ```
