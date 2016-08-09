@@ -56,7 +56,6 @@ module ActiveAdmin
               div class: 'wrapper row-offcanvas row-offcanvas-left' do
                 aside class: 'left-side sidebar-offcanvas' do
                   section class: 'sidebar' do
-                    build_user_panel
                     build_global_navigation
                   end
                 end
@@ -97,33 +96,6 @@ module ActiveAdmin
                 end
               end
             end
-          end
-
-          def build_user_panel
-            raw = <<-END.strip_heredoc
-                  <div class="user-panel">
-                      <div class="pull-left image">
-                          <img src="#{avatar_path}" class="img-circle" alt="#{avatar_alt}" />
-                      </div>
-                      <div class="pull-left info">
-                        #{avatar_name}
-                      </div>
-                  </div>
-                  END
-            text_node raw.html_safe
-          end
-
-          def avatar_path
-            avatar_file = "admin-lte/avatar#{(1..6).to_a.sample}.png"
-            image_path(avatar_file)
-          end
-
-          def avatar_name
-            display_name current_active_admin_user
-          end
-
-          def avatar_alt
-            'some user'
           end
 
           def build_flash_messages
