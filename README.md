@@ -16,6 +16,11 @@ Disable stylesheets of ActiveAdmin in your project. By default, remove this line
 @import "active_admin/base";
 ```
 
+Configure the color, create file : `config/initializers/active_admin_lte.rb`
+```
+ActiveAdmin::LTE.configure.skin='blue'
+```
+
 ## Usage
 
 ### Custom the color
